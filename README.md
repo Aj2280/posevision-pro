@@ -47,7 +47,23 @@
    npm run build
    ```
 
+## 🧠 How It Works
+
+PoseVision Pro uses a multi-stage pipeline to transform raw pixels into actionable biometric data:
+
+```mermaid
+graph TD
+    A[Media Source: Webcam/File] --> B[WASM Pre-processor]
+    B --> C[MediaPipe Pose Landmarker]
+    C --> D[33 Keypoint Landmark Extraction]
+    D --> E[Biometric Calculator]
+    E --> F[Angle Derivation & FSM Rep Counting]
+    F --> G[Pro Dashboard Overlay]
+    G --> H[User Form Feedback]
+```
+
 ## 🎯 Supported Exercises
+...
 
 Currently, PoseVision Pro features specialized state-tracking for:
 - **Squats**: Detects hip-knee-ankle angles and validates squat depth.
@@ -57,6 +73,11 @@ Currently, PoseVision Pro features specialized state-tracking for:
 ## 🧑‍💻 Technical Details
 
 The engine utilizes the **Pose Landmarker Lite** model with `float16` quantization, ensuring it runs efficiently on most modern laptops and mobile browsers. Key landmarks (33 in total) are processed at 30-60 FPS, with custom drawing logic implemented on an absolute-positioned HTML5 Canvas.
+
+### Advanced Features
+- **Law of Cosines Integration**: Precise angle calculation using 3-point vectors.
+- **Finite State Machine (FSM)**: Robust rep counting that prevents half-reps and false triggers.
+- **Dynamic Normalization**: Automatic adjustment for user distance and orientation.
 
 ---
 
